@@ -33,19 +33,17 @@ public:
         this->propertyColor = propertyColor;
         this->value = value;
         this->rent = rent;
-
-
     }
 
     bool isEqual(MonopolySpace other) {
         /* TODO: Define isEqual here (compare by name is fine if you enforce uniqueness) */
-        return false;
+        return this->propertyName == other.propertyName && this->propertyColor == other.propertyColor && this->value == other.value;
     }
 
     void print() {
         /* TODO: Define print here */
         // Example style:
-        // cout << propertyName << " | " << propertyColor << " | $" << value << " | Rent " << rent;
+         cout << propertyName << " | " << propertyColor << " | $" << value << " | Rent " << rent;
     }
 };
 
@@ -111,6 +109,20 @@ public:
         // - If empty list: head=tail=player=new, new->next=head
         // - Else: tail->next=new, tail=new, tail->next=head
         // - nodeCount++
+        if (nodeCount == MAX_SPACES) {
+            return false;
+        }
+        Node<T>* newNode = new Node<T>(value);
+        if (nodeCount == 0) {
+            headNode = tailNode = newNode;
+            newNode->next = headNode;
+
+            else {
+                tailNode->next = newNode;
+                nodeCount++
+            }
+        }
+
         cout << "addSpace unwritten" << endl;
         return false;
     }
