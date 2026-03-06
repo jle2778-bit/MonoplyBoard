@@ -114,18 +114,18 @@ public:
         }
         Node<T>* newNode = new Node<T>(value);
         if (nodeCount == 0) {
-            headNode = tailNode = newNode;
-            newNode->next = headNode;
-
-            else {
-                tailNode->next = newNode;
-                nodeCount++
-            }
+            headNode = tailNode = playerNode = newNode;
+            newNode->nextNode = headNode;
         }
-
-        cout << "addSpace unwritten" << endl;
-        return false;
+        else {
+            tailNode->nextNode = newNode;
+            tailNode = newNode;
+            tailNode->nextNode = headNode;
+        }
+        nodeCount++;
+        return true;
     }
+
 
     // -------------------------------
     // Core B: Add Multiple Spaces at Once
@@ -136,8 +136,15 @@ public:
         // - Stop exactly when you reach MAX_SPACES
         // - Return number successfully added
         // - Do not corrupt pointers if capacity is exceeded
-        cout << "addMany unwritten" << endl;
-        return 0;
+        int count = 0;
+        for (int i = 0; i < values.size(); i++) {
+            bool result = addSpace(values[i]);
+            if (result == false) {
+                break;
+            }
+            count++;
+        }
+        return count;
     }
 
     // -------------------------------
@@ -273,7 +280,7 @@ int main() {
     // -------------------------------
     // Playable Traversal Loop
     // -------------------------------
-    for (int turn = 1; turn <= 10; turn++) {
+ /*   for (int turn = 1; turn <= 10; turn++) {
         int roll = rollDice2to12();
         cout << "\nTurn " << turn << " | Rolled: " << roll << endl;
 
@@ -294,6 +301,13 @@ int main() {
     //
     // Option B example:
     // board.mirrorBoard();
+*/
+    //ADD SPACE TEST
+      /*  for (int i = 0; i < 41; i++) {
+            bool print = board.addSpace(MonopolySpace("Test" + to_string(i), "None", 31, 67));
+            cout << print << endl;
+        }
+    */
 
     return 0;
 }
