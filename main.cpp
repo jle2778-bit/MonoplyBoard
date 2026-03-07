@@ -157,6 +157,7 @@ public:
         // - Detect and track passing GO:
         //   increment passGoCount when a move crosses from tail back to head
         // - Must handle empty list safely
+
         cout << "movePlayer unwritten" << endl;
     }
 
@@ -303,11 +304,22 @@ int main() {
     // board.mirrorBoard();
 */
     //ADD SPACE TEST
-      /*  for (int i = 0; i < 41; i++) {
+   /* int spaceAdd = 41;
+        for (int i = 0; i < spaceAdd; i++) {
             bool print = board.addSpace(MonopolySpace("Test" + to_string(i), "None", 31, 67));
             cout << print << endl;
         }
     */
+
+    // ADD MANY TEST
+   vector<MonopolySpace> players;
+    int numAdd = 40; // Change how many spaces you want to add.
+    for (int i = 0; i < numAdd; i++) {
+        players.push_back(MonopolySpace("Test1" + to_string(i), "None", 0, 0));
+    }
+    int addedPlayers = board.addMany(players);
+    cout << "Test 1" << endl;
+    cout << addedPlayers << endl;
 
     return 0;
 }
