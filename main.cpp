@@ -218,6 +218,42 @@ public:
         // - Maintain circular link tail->next=head
         // - If playerNode points to deleted node, move playerNode to a safe node
         // - nodeCount--
+        Node<T>* current = headNode;
+        Node<T>* previous = tailNode;
+        if (headNode == nullptr) {
+            return false;
+        }
+        int stepCount = 0;
+        while (stepCount < nodeCount) {
+            if (current->data.propertyName == name) {
+
+                previous->nextNode = current->nextNode; //disconnects our node
+
+                if (current == tailNode) {
+                    tailNode = previous;
+                }
+
+                if (current == headNode) {
+                    headNode = current->nextNode;
+                }
+
+                if (current == playerNode) {
+                    playerNode = current->nextNode;
+                }
+
+                delete current;
+                nodeCount--;
+                return true;
+
+            }
+            previous = current;
+            current = current->nextNode;
+            stepCount++;
+        }
+
+
+
+        }
         cout << "removeByName unwritten" << endl;
         return false;
     }
