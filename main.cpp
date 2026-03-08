@@ -157,8 +157,16 @@ public:
         // - Detect and track passing GO:
         //   increment passGoCount when a move crosses from tail back to head
         // - Must handle empty list safely
+        if (playerNode == nullptr) {
+            return;
+        }
+        for (int i = 0; i < steps; i++) {
+            if (playerNode->nextNode == headNode) {
+                passGoCount++;
+            }
+            playerNode = playerNode->nextNode;
+        }
 
-        cout << "movePlayer unwritten" << endl;
     }
 
     int getPassGoCount() {
@@ -304,7 +312,7 @@ int main() {
     // board.mirrorBoard();
 */
     //ADD SPACE TEST
-   /* int spaceAdd = 41;
+   /* int spaceAdd = 41; // Change how much times you add space one times
         for (int i = 0; i < spaceAdd; i++) {
             bool print = board.addSpace(MonopolySpace("Test" + to_string(i), "None", 31, 67));
             cout << print << endl;
@@ -312,6 +320,7 @@ int main() {
     */
 
     // ADD MANY TEST
+    /*
    vector<MonopolySpace> players;
     int numAdd = 40; // Change how many spaces you want to add.
     for (int i = 0; i < numAdd; i++) {
@@ -320,6 +329,18 @@ int main() {
     int addedPlayers = board.addMany(players);
     cout << "Test 1" << endl;
     cout << addedPlayers << endl;
+    */
+
+    // MOVE PLAYER TEST
+    vector<MonopolySpace> players;
+    int numAdd = 40; // Change how many spaces you want to add.
+    for (int i = 0; i < numAdd; i++) {
+        players.push_back(MonopolySpace("Test1" + to_string(i), "None", 0, 0));
+    }
+    int addedPlayers = board.addMany(players);
+    board.movePlayer(40);
+    cout << "Pass Go Count: " << board.getPassGoCount() << endl;
+
 
     return 0;
 }
