@@ -165,6 +165,7 @@ public:
                 passGoCount++;
             }
             playerNode = playerNode->nextNode;
+            int stepCount = stepCount + 1;
         }
 
     }
@@ -182,7 +183,19 @@ public:
         // - Must not infinite loop
         // - Must handle empty list
         // - Output must be deterministic and readable
-        cout << "printFromPlayer unwritten" << endl;
+        if (playerNode == nullptr || count <= 0) {
+            return;
+        }
+        int i = 0;
+        Node<T>* current = playerNode;
+        while (i < count) {
+            current->data.print();
+            cout << endl;
+            i++;
+            current = current->nextNode;
+        }
+
+        cout << "Displated Spaces: " << count << endl;
     }
 
     // Optional helper: print full board once (one full cycle)
@@ -312,15 +325,20 @@ int main() {
     // board.mirrorBoard();
 */
     //ADD SPACE TEST
-   /* int spaceAdd = 41; // Change how much times you add space one times
+    /* cout << "----- ADD SPACE TEST -----" << endl;
+
+    int spaceAdd = 41; // Change how much times you add space one times
         for (int i = 0; i < spaceAdd; i++) {
             bool print = board.addSpace(MonopolySpace("Test" + to_string(i), "None", 31, 67));
             cout << print << endl;
         }
+    cout << endl;
     */
 
     // ADD MANY TEST
-    /*
+    /*cout << "----- ADD MANY TEST -----" << endl;
+
+
    vector<MonopolySpace> players;
     int numAdd = 40; // Change how many spaces you want to add.
     for (int i = 0; i < numAdd; i++) {
@@ -329,9 +347,11 @@ int main() {
     int addedPlayers = board.addMany(players);
     cout << "Test 1" << endl;
     cout << addedPlayers << endl;
+    cout << endl;
     */
 
     // MOVE PLAYER TEST
+    cout << "----- MOVE PLAYER TEST -----" << endl;
     vector<MonopolySpace> players;
     int numAdd = 40; // Change how many spaces you want to add.
     for (int i = 0; i < numAdd; i++) {
@@ -340,7 +360,13 @@ int main() {
     int addedPlayers = board.addMany(players);
     board.movePlayer(40);
     cout << "Pass Go Count: " << board.getPassGoCount() << endl;
+    cout << endl;
 
+    // PRINT FROM PLAYER TEST
+    cout << "----- PRINT FROM PLAYER TEST -----" << endl;
+
+    board.printFromPlayer(5);
+    cout << endl;
 
     return 0;
 }
