@@ -195,7 +195,7 @@ public:
             current = current->nextNode;
         }
 
-        cout << "Displated Spaces: " << count << endl;
+        cout << "Displayed Spaces: " << count << endl;
     }
 
     // Optional helper: print full board once (one full cycle)
@@ -249,10 +249,6 @@ public:
             previous = current;
             current = current->nextNode;
             stepCount++;
-        }
-
-
-
         }
         cout << "removeByName unwritten" << endl;
         return false;
@@ -389,9 +385,9 @@ int main() {
     // MOVE PLAYER TEST
     cout << "----- MOVE PLAYER TEST -----" << endl;
     vector<MonopolySpace> players;
-    int numAdd = 40; // Change how many spaces you want to add.
+    int numAdd = 39; // Change how many spaces you want to add.
     for (int i = 0; i < numAdd; i++) {
-        players.push_back(MonopolySpace("Test1" + to_string(i), "None", 0, 0));
+        players.push_back(MonopolySpace("Test" + to_string(i), "None", 0, 0));
     }
     int addedPlayers = board.addMany(players);
     board.movePlayer(40);
@@ -404,5 +400,16 @@ int main() {
     board.printFromPlayer(5);
     cout << endl;
 
+    // REMOVE BY NAME TEST
+    cout << "----- REMOVE BY NAME TEST -----" << endl;
+    board.removeByName("GO");
+    board.removeByName("Test1");
+    board.removeByName("Test2");
+    board.printFromPlayer(5);
+    cout << endl;
+
     return 0;
+
+
+
 }
