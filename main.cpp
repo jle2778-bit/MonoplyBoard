@@ -165,7 +165,6 @@ public:
                 passGoCount++;
             }
             playerNode = playerNode->nextNode;
-            int stepCount = stepCount + 1;
         }
 
     }
@@ -262,8 +261,21 @@ public:
         // - Traverse ring exactly once
         // - Collect matching names in vector<string>
         // - Return matches
-        cout << "findByColor unwritten" << endl;
+        Node<T>* current = headNode;
         vector<string> matches;
+        if (headNode == nullptr) {
+            return matches;
+        }
+        int stepCount = 0;
+        while (stepCount < nodeCount) {
+            if (current->data.propertyColor == color) {
+                matches.push_back(current->data.propertyName);
+
+            }
+            current = current->nextNode;
+            stepCount++;
+        }
+        cout << "Colors Matched: " << endl;
         return matches;
     }
 
@@ -286,8 +298,18 @@ public:
         // TODO:
         // - Must be O(n), traverse exactly once with correct stop condition
         // - Do NOT rely on nodeCount for this method
-        cout << "countSpaces unwritten" << endl;
-        return 0;
+        Node<T>* current = headNode;
+        Node<T>* startNode = headNode;
+        int countSpaces = 0;
+        if (headNode == nullptr) {
+            return countSpaces;
+        }
+        do {
+            countSpaces++;
+            current = current->nextNode;
+        }while (current != startNode);
+
+        return countSpaces;
     }
 
     // -------------------------------
@@ -298,7 +320,20 @@ public:
         // - Safely delete all nodes
         // - Tip: if tailNode exists, break the cycle first: tailNode->nextNode = nullptr
         // - Then delete like a normal singly linked list
-        cout << "clear unwritten" << endl;
+        Node<T>* current = headNode;
+        if (tailNode != nullptr) {
+            tailNode->nextNode = nullptr;
+        }
+        while (current != nullptr) {
+            Node<T>* temp = current;
+            current = current->nextNode;
+            delete temp;
+        }
+        headNode = nullptr;
+        tailNode = nullptr;
+        playerNode = nullptr;
+        nodeCount = 0;
+        passGoCount = 0;
     }
 };
 
@@ -322,19 +357,58 @@ int main() {
     // The only requirement: never exceed MAX_SPACES and keep the list circular.
     //
     // Example (hardcoded) usage:
-    // vector<MonopolySpace> spaces;
-    // spaces.push_back(MonopolySpace("GO","None",0,0));
+    vector<MonopolySpace> spaces = {
+        {"GO","None",0,0},
+        {"Mediterranean Avenue","Brown",60,2},
+        {"Community Chest","None",0,0},
+        {"Baltic Avenue","Brown",60,4},
+        {"Income Tax","None",0,0},
+        {"Reading Railroad","Railroad",200,25},
+        {"Oriental Avenue","Light Blue",100,6},
+        {"Chance","None",0,0},
+        {"Vermont Avenue","Light Blue",100,6},
+        {"Connecticut Avenue","Light Blue",120,8},
+        {"Jail","None",0,0},
+        {"St. Charles Place","Pink",140,10},
+        {"Electric Company","Utility",150,10},
+        {"States Avenue","Pink",140,10},
+        {"Virginia Avenue","Pink",160,12},
+        {"Pennsylvania Railroad","Railroad",200,25},
+        {"St. James Place","Orange",180,14},
+        {"Community Chest","None",0,0},
+        {"Tennessee Avenue","Orange",180,14},
+        {"New York Avenue","Orange",200,16},
+        {"Free Parking","None",0,0},
+        {"Kentucky Avenue","Red",220,18},
+        {"Chance","None",0,0},
+        {"Indiana Avenue","Red",220,18},
+        {"Illinois Avenue","Red",240,20},
+        {"B&O Railroad","Railroad",200,25},
+        {"Atlantic Avenue","Yellow",260,22},
+        {"Ventnor Avenue","Yellow",260,22},
+        {"Water Works","Utility",150,10},
+        {"Marvin Gardens","Yellow",280,24},
+        {"Go To Jail","None",0,0},
+        {"Pacific Avenue","Green",300,26},
+        {"North Carolina Avenue","Green",300,26},
+        {"Community Chest","None",0,0},
+        {"Pennsylvania Avenue","Green",320,28},
+        {"Short Line Railroad","Railroad",200,25},
+        {"Chance","None",0,0},
+        {"Park Place","Dark Blue",350,35},
+        {"Luxury Tax","None",0,0},
+        {"Boardwalk","Dark Blue",400,50}
+    };
+
     // ...
-    // board.addMany(spaces);
+     board.addMany(spaces);
     //
     // NOTE: This starter calls addSpace once to show the intended API,
     // but your final submission should build a meaningful board.
-    board.addSpace(MonopolySpace("GO", "None", 0, 0));
-
     // -------------------------------
     // Playable Traversal Loop
     // -------------------------------
- /*   for (int turn = 1; turn <= 10; turn++) {
+    for (int turn = 1; turn <= 10; turn++) {
         int roll = rollDice2to12();
         cout << "\nTurn " << turn << " | Rolled: " << roll << endl;
 
@@ -350,12 +424,27 @@ int main() {
     // Advanced Feature Demos (students choose path)
     // -------------------------------
     // Option A examples:
-    // board.removeByName("Baltic Avenue");
-    // vector<string> brownProps = board.findByColor("Brown");
+    cout << endl;
+    cout << "----- Remove by Name -----" << endl;
+    cout << "Before Removal: " << board.countSpaces() << endl;
+    board.removeByName("Baltic Avenue");
+    cout << "After Removal: " << board.countSpaces() << endl;
+
+    cout << endl;
+
+    cout << "----- Find by Color -----" << endl;
+     vector<string> GreenProps = board.findByColor("Green");
+    for (int i = 0; i < GreenProps.size(); i++) {
+        cout << "| " << GreenProps[i] << " |" << endl;
+    }
     //
     // Option B example:
     // board.mirrorBoard();
-*/
+
+
+
+
+
     //ADD SPACE TEST
     /* cout << "----- ADD SPACE TEST -----" << endl;
 
@@ -370,7 +459,6 @@ int main() {
     // ADD MANY TEST
     /*cout << "----- ADD MANY TEST -----" << endl;
 
-
    vector<MonopolySpace> players;
     int numAdd = 40; // Change how many spaces you want to add.
     for (int i = 0; i < numAdd; i++) {
@@ -383,30 +471,48 @@ int main() {
     */
 
     // MOVE PLAYER TEST
-    cout << "----- MOVE PLAYER TEST -----" << endl;
+   /* cout << "----- MOVE PLAYER TEST -----" << endl;
     vector<MonopolySpace> players;
     int numAdd = 39; // Change how many spaces you want to add.
     for (int i = 0; i < numAdd; i++) {
-        players.push_back(MonopolySpace("Test" + to_string(i), "None", 0, 0));
+        players.push_back(MonopolySpace("Test" + to_string(i), "Red", 0, 0));
     }
     int addedPlayers = board.addMany(players);
     board.movePlayer(40);
     cout << "Pass Go Count: " << board.getPassGoCount() << endl;
-    cout << endl;
+    cout << endl; */
 
     // PRINT FROM PLAYER TEST
-    cout << "----- PRINT FROM PLAYER TEST -----" << endl;
+   /* cout << "----- PRINT FROM PLAYER TEST -----" << endl;
 
     board.printFromPlayer(5);
-    cout << endl;
+    cout << endl; */
 
     // REMOVE BY NAME TEST
-    cout << "----- REMOVE BY NAME TEST -----" << endl;
+  /*  cout << "----- REMOVE BY NAME TEST -----" << endl;
     board.removeByName("GO");
     board.removeByName("Test1");
     board.removeByName("Test2");
     board.printFromPlayer(5);
+    cout << endl; */
+
+    // MATCH BY COLOR TEST
+   /* cout << "----- FIND BY COLOR TEST -----" << endl;
+    vector<string> matches = board.findByColor("Red");
+    for (int i = 0; i < matches.size(); i++) {
+        cout << matches[i] << " ";
+    }
+    cout << endl; */
+
+    // COUNT SPACES TEST
+  /*  cout << "----- COUNT SPACES TEST -----" << endl;
+    cout << "Spaces Counted: " << board.countSpaces() << endl;
     cout << endl;
+
+    // DELETE METHOD TEST
+    cout << "----- DELETE METHOD TEST -----" << endl;
+    board.clear();
+    cout << "Spaces Counted: " << board.countSpaces() << endl; */
 
     return 0;
 
