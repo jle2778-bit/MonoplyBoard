@@ -446,29 +446,30 @@ int main() {
 
 
     //ADD SPACE TEST
-    /* cout << "----- ADD SPACE TEST -----" << endl;
-
-    int spaceAdd = 41; // Change how much times you add space one times
+/*
+    cout << "----- ADD SPACE TEST -----" << endl;
+board.clear();
+    int spaceAdd = 45; // Change how much times you add space one times
         for (int i = 0; i < spaceAdd; i++) {
             bool print = board.addSpace(MonopolySpace("Test" + to_string(i), "None", 31, 67));
             cout << print << endl;
         }
     cout << endl;
-    */
+*/
 
     // ADD MANY TEST
-    /*cout << "----- ADD MANY TEST -----" << endl;
-
-   vector<MonopolySpace> players;
+  /*  cout << "----- ADD MANY TEST -----" << endl;
+    board.clear();
+   vector<MonopolySpace> players1;
     int numAdd = 40; // Change how many spaces you want to add.
     for (int i = 0; i < numAdd; i++) {
-        players.push_back(MonopolySpace("Test1" + to_string(i), "None", 0, 0));
+        players1.push_back(MonopolySpace("Test1" + to_string(i), "None", 0, 0));
     }
-    int addedPlayers = board.addMany(players);
+    int addedPlayers = board.addMany(players1);
     cout << "Test 1" << endl;
     cout << addedPlayers << endl;
     cout << endl;
-    */
+*/
 
     // MOVE PLAYER TEST
    /* cout << "----- MOVE PLAYER TEST -----" << endl;
@@ -509,8 +510,8 @@ int main() {
     cout << "Spaces Counted: " << board.countSpaces() << endl;
     cout << endl;
 
-    // DELETE METHOD TEST
-    cout << "----- DELETE METHOD TEST -----" << endl;
+    // ClEAR METHOD TEST
+    cout << "----- CLEAR METHOD TEST -----" << endl;
     board.clear();
     cout << "Spaces Counted: " << board.countSpaces() << endl; */
 
